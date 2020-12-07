@@ -67,8 +67,8 @@ public enum MembersError: Error {
 
 // MARK: - PROTOCOL
 public protocol MembersStorage {
-    func register(key: [String])
-    func userChangeListener() -> AnyPublisher<MembersState, MembersError>
+    func register(keys: [String])
+    func changeListeners() -> AnyPublisher<MembersState, MembersError>
 }
 
 // MARK: - MIDDLEWARE
