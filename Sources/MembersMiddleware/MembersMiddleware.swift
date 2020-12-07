@@ -111,7 +111,7 @@ public class MembersMiddleware: Middleware {
         self.getState = getState
         self.output = output
         self.stateChangeCancellable = provider
-            .userChangeListener()
+            .changeListeners()
             .sink { (completion: Subscribers.Completion<MembersError>) in
                 var result: String = "success"
                 if case let Subscribers.Completion.failure(err) = completion {
@@ -147,7 +147,7 @@ public class MembersMiddleware: Middleware {
                     type: .debug,
                     String(describing: ids)
                 )
-                provider.register(key: ids)
+                provider.register(keys: ids)
             default:
                 os_log(
                     "Not handling this case : %s ...",
