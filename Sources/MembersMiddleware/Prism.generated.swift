@@ -26,7 +26,7 @@ extension MembersAction {
         self.register != nil
     }
 
-    public var stateChanged: [MembersState]? {
+    public var stateChanged: MembersState? {
         get {
             guard case let .stateChanged(associatedValue0) = self else { return nil }
             return (associatedValue0)

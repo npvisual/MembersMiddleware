@@ -8,7 +8,7 @@ import SwiftRex
 //sourcery: Prism
 public enum MembersAction {
     case register([String])
-    case stateChanged([MembersState])
+    case stateChanged(MembersState)
 }
 
 // MARK: - STATE
@@ -68,7 +68,7 @@ public enum MembersError: Error {
 // MARK: - PROTOCOL
 public protocol MembersStorage {
     func register(key: [String])
-    func userChangeListener() -> AnyPublisher<[MembersState], MembersError>
+    func userChangeListener() -> AnyPublisher<MembersState, MembersError>
 }
 
 // MARK: - MIDDLEWARE
