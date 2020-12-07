@@ -1,7 +1,7 @@
 import XCTest
 
-import FamilyMembersMiddlewareTests
+import MembersMiddlewareTests
 
 var tests = [XCTestCaseEntry]()
-tests += FamilyMembersMiddlewareTests.allTests()
+tests += MembersMiddlewareTests.allTests()
 XCTMain(tests)
