@@ -13,9 +13,9 @@ public enum MembersAction {
 
 // MARK: - STATE
 public struct MembersState: Codable, Equatable {
-    public let members: [MemberInfo]?
+    public let members: [String: MemberInfo]?
     
-    public init(members: [MemberInfo]?) {
+    public init(members: [String: MemberInfo]?) {
         self.members = members
     }
 }
