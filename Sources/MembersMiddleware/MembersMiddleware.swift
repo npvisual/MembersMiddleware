@@ -18,6 +18,8 @@ public struct MembersState: Codable, Equatable {
     public init(members: [String: MemberInfo]?) {
         self.members = members
     }
+    
+    public static let empty = MembersState(members: [:])
 }
 
 public struct MemberInfo: Equatable, Hashable {
