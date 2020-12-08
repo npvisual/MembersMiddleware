@@ -143,14 +143,22 @@ public class MembersMiddleware: Middleware {
     ) {
         switch action {
             case let .register(ids):
-                let diff = idBuffer.difference(from: ids)
+                // We gather the difference between the ids being
+                // registered (members in the group / family) and
+                // the ones in the existing buffer.
+                let diff = ids.difference(from: idBuffer)
                 os_log(
                     "Registering members : %s ...",
                     log: MembersMiddleware.logger,
                     type: .debug,
                     String(describing: diff)
                 )
+                // We send that difference to the provider so we
+                // can add / remove listeners appropriately.
                 provider.register(keys: diff)
+                // Then we either apply the difference to the existing
+                // buffer or use the existing buffer if there's no diff.
+                idBuffer = idBuffer.applying(diff) ?? idBuffer
             default:
                 os_log(
                     "Not handling this case : %s ...",
