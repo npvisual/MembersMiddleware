@@ -67,7 +67,7 @@ public enum MembersError: Error {
 
 // MARK: - PROTOCOL
 public protocol MembersStorage {
-    func register(keys: [String])
+    func register(keys: CollectionDifference<String>)
     func changeListeners() -> AnyPublisher<MembersState, MembersError>
 }
 
@@ -97,6 +97,8 @@ public class MembersMiddleware: Middleware {
     
     private var stateChangeCancellable: AnyCancellable?
     private var operationCancellable: AnyCancellable?
+    
+    private var idBuffer: [String] = []
 
     public init(provider: MembersStorage) {
         self.provider = provider
@@ -141,13 +143,14 @@ public class MembersMiddleware: Middleware {
     ) {
         switch action {
             case let .register(ids):
+                let diff = idBuffer.difference(from: ids)
                 os_log(
                     "Registering members : %s ...",
                     log: MembersMiddleware.logger,
                     type: .debug,
-                    String(describing: ids)
+                    String(describing: diff)
                 )
-                provider.register(keys: ids)
+                provider.register(keys: diff)
             default:
                 os_log(
                     "Not handling this case : %s ...",
