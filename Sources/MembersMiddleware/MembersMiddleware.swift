@@ -150,17 +150,19 @@ public class MembersMiddleware: Middleware {
                 // the ones in the existing buffer.
                 let diff = ids.sorted().difference(from: idBuffer)
                 os_log(
-                    "Registering members : %s ...",
+                    "Registering ids : %s ...",
                     log: MembersMiddleware.logger,
                     type: .debug,
                     String(describing: diff)
                 )
                 // We send that difference to the provider so we
                 // can add / remove listeners appropriately.
-                provider.register(keys: diff)
-                // Then we either apply the difference to the existing
-                // buffer or use the existing buffer if there's no diff.
-                idBuffer = idBuffer.applying(diff) ?? idBuffer
+                if !(diff.insertions.isEmpty || diff.removals.isEmpty) {
+                    provider.register(keys: diff)
+                    // Then we either apply the difference to the existing
+                    // buffer or use the existing buffer if there's no diff.
+                    idBuffer = idBuffer.applying(diff) ?? idBuffer
+                }
             default:
                 os_log(
                     "Not handling this case : %s ...",
