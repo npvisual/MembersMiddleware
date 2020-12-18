@@ -148,7 +148,7 @@ public class MembersMiddleware: Middleware {
                 // We gather the difference between the ids being
                 // registered (members in the group / family) and
                 // the ones in the existing buffer.
-                let diff = ids.difference(from: idBuffer)
+                let diff = ids.sorted().difference(from: idBuffer)
                 os_log(
                     "Registering members : %s ...",
                     log: MembersMiddleware.logger,
