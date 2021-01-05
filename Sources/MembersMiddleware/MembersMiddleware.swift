@@ -155,9 +155,9 @@ public class MembersMiddleware: Middleware {
                     type: .debug,
                     String(describing: diff)
                 )
-                // We send that difference to the provider so we
-                // can add / remove listeners appropriately.
                 if !(diff.insertions.isEmpty && diff.removals.isEmpty) {
+                    // We send that difference to the provider so we
+                    // can add / remove listeners appropriately.
                     provider.register(keys: diff)
                     // Then we either apply the difference to the existing
                     // buffer or use the existing buffer if there's no diff.
